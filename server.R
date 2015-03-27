@@ -258,12 +258,12 @@ shinyServer(function(input, output) {
     if(input$data != "Financial data"){
       #str(datain())
       #return(input$choose_vars)
-      list(input$mydata,
+      list(input$selectedobs,
            input$mynumber)
     } else {
       #return(str(list(data=X,info=stockdata$info)))
       #return(input$choose_vars)
-      list(input$mydata,
+      list(input$selectedobs,
            input$mynumber)
     }
   })
@@ -297,7 +297,7 @@ shinyServer(function(input, output) {
     if(input$table_data_logical==1){
       displayDF <- as.matrix(data) # baseData$df #data sent to d3.js 
       n=dim(displayDF)[1]
-      dfFilter <- input$mydata[1:n] # passed from the web interface
+      dfFilter <- input$selectedobs[1:n] # passed from the web interface
       if (is.null(dfFilter)){
         # means no selection has been made
         dfFilter = rep(TRUE,n)
