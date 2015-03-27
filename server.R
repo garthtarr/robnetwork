@@ -2,12 +2,15 @@ library(shiny)
 require(huge)
 data(stockdata)
 X = log(stockdata$data[2:1258,]/stockdata$data[1:1257,])
+colnames(X) = stockdata$info[,3]
 # cor.mat.classical.save = cor(X)
 # cor.mat.Qn.save = cov2cor(pair.cov(X,scale.fn = Qn))
 # cor.mat.Pn.save = cov2cor(pair.cov(X,scale.fn=Pn))
 # cor.mat.gr.save = cov2cor(gaus.cov.Qn(X))
 load("cormats.RData")
 require(networkD3)
+require(pairsD3)
+require(htmlwidgets)
 source("covest.R")
 source("graphest.R")
 
@@ -253,9 +256,70 @@ shinyServer(function(input, output) {
   
   output$datastr = renderPrint({
     if(input$data != "Financial data"){
-      str(grpnm())
-    } else {return(str(list(data=X,info=stockdata$info)))}
+      #str(datain())
+      #return(input$choose_vars)
+      list(input$mydata,
+           input$mynumber)
+    } else {
+      #return(str(list(data=X,info=stockdata$info)))
+      #return(input$choose_vars)
+      list(input$mydata,
+           input$mynumber)
+    }
   })
+  
+  output$pairsplot = renderPairsD3({
+    if(input$data != "Financial data"){
+      pairsD3(subset(datain(),select = input$choose_vars))
+    } else {
+      pairsD3(subset(X,select=input$choose_vars))
+    }
+  })
+  
+  choices<-reactive({
+    input$choose_vars
+  })
+  
+  output$varselect <- renderUI({
+    if(input$data != "Financial data"){
+      cols = colnames(datain())
+    } else { cols = colnames(X)}
+    selectInput("choose_vars", "Select variables to plot:",
+                choices=cols, selected=cols[1:3], multiple=T)  
+  })
+  
+  output$outputTable <- renderDataTable({
+    if(input$data != "Financial data"){
+      data = datain()
+    } else { 
+      data = X 
+    }
+    if(input$table_data_logical==1){
+      displayDF <- as.matrix(data) # baseData$df #data sent to d3.js 
+      n=dim(displayDF)[1]
+      dfFilter <- input$mydata[1:n] # passed from the web interface
+      if (is.null(dfFilter)){
+        # means no selection has been made
+        dfFilter = rep(TRUE,n)
+      }
+      displayDF <- as.data.frame(cbind(names=row.names(displayDF), 
+                                       displayDF))
+      dfFilter[dfFilter==''] = TRUE
+      dfFilter[dfFilter=='greyed'] = FALSE
+      if(input$table_data_vars==0){
+        return(as.matrix(displayDF[dfFilter == TRUE,choices(),drop=FALSE]))
+      } else if(input$table_data_vars==1){
+        return(as.matrix(displayDF[dfFilter == TRUE,,drop=FALSE]))
+      }
+    } else {
+      return(NULL)
+    }
+  }, 
+  options = list(pageLength = 20,
+                 lengthMenu = list(c(20, 50, -1), c('20', '50', 'All')),
+                 searching = FALSE)
+  )
+  
   
 })
 

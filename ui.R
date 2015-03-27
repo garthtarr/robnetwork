@@ -1,6 +1,8 @@
 library(shiny)
 require(huge)
 require(networkD3)
+require(pairsD3)
+require(htmlwidgets)
 source("covest.R")
 source("graphest.R")
 
@@ -48,11 +50,21 @@ shinyUI(fluidPage(
                      "base" = "base")),
       radioButtons("extra_info", "Additional graph information?",
                    c("No" = "FALSE",
-                     "Yes" = "TRUE")
+                     "Yes" = "TRUE")),
+      conditionalPanel(
+        condition = "input.tabs1 == 3",
+        uiOutput("varselect"),
+        radioButtons("table_data_logical", label="Table of data?",
+                     choices = c("No" = 0,
+                                 "Yes" = 1)),
+        conditionalPanel(
+          condition = "input.table_data_logical == 1",
+          selectInput(inputId="table_data_vars",label="Include all variables in table?",
+                      choices=c("No" = 0,
+                                "Yes" = 1))
+        )
       )
     ),
-    
-    # Show a plot of the generated distribution
     mainPanel(
       tabsetPanel(
         tabPanel("Graph",
@@ -71,9 +83,11 @@ shinyUI(fluidPage(
                  includeMarkdown("info.Rmd"),
                  value=2),
         tabPanel("Data",
-                 verbatimTextOutput("datastr"),
-                 value=3)
-      )
+                 #verbatimTextOutput("datastr"),
+                 dataTableOutput(outputId="outputTable"),
+                 pairsD3Output("pairsplot"),
+                 value=3),
+        id="tabs1")
     )
   )
 ))
