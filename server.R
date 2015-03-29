@@ -106,49 +106,49 @@ shinyServer(function(input, output) {
             cor.classical.save <<- cor.mat()
           }
           plot.g.d3(cor.classical.save,lambda=input$lambda,
-                    width=700,height=550,
+                    width=700,height=550,charge = input$charge,
                     var.names = varnm(), group.labs = grpnm())
         } else if(input$cov.mtd=="Qn pairwise"){
           if(is.null(cor.Qn.save)){
             cor.Qn.save <<- cor.mat()
           }
           plot.g.d3(cor.Qn.save,lambda=input$lambda,
-                    width=700,height=550,
+                    width=700,height=550,charge = input$charge,
                     var.names = varnm(), group.labs = grpnm())
         } else if(input$cov.mtd=="Pn pairwise"){
           if(is.null(cor.Pn.save)){
             cor.Pn.save <<- cor.mat()
           }
           plot.g.d3(cor.Pn.save,lambda=input$lambda,
-                    width=700,height=550,
+                    width=700,height=550,charge = input$charge,
                     var.names = varnm(), group.labs = grpnm())
         } else if(input$cov.mtd=="Gaussian Rank"){
           if(is.null(cor.gr.save)){
             cor.gr.save <<- cor.mat()
           }
           plot.g.d3(cor.gr.save,lambda=input$lambda,
-                    width=700,height=550,
+                    width=700,height=550,charge = input$charge,
                     var.names = varnm(), group.labs = grpnm())
         }
       } else { # inbuilt Financial example 
         if(input$cov.mtd=="Classical covariance"){
           plot.g.d3(cor.mat.classical.save,lambda=input$lambda,
-                    width=700,height=550,
+                    width=700,height=550,charge = input$charge,
                     var.names = stockdata$info[,1],
                     group.labs = stockdata$info[,2])
         } else if(input$cov.mtd=="Qn pairwise"){
           plot.g.d3(cor.mat.Qn.save,lambda=input$lambda,
-                    width=700,height=550,
+                    width=700,height=550,charge = input$charge,
                     var.names = stockdata$info[,1],
                     group.labs = stockdata$info[,2])
         } else if(input$cov.mtd=="Pn pairwise"){
           plot.g.d3(cor.mat.Pn.save,lambda=input$lambda,
-                    width=700,height=550,
+                    width=700,height=550,charge = input$charge,
                     var.names = stockdata$info[,1],
                     group.labs = stockdata$info[,2])
         } else if(input$cov.mtd=="Gaussian Rank"){
           plot.g.d3(cor.mat.gr.save,lambda=input$lambda,
-                    width=700,height=550,
+                    width=700,height=550,charge = input$charge,
                     var.names = stockdata$info[,1],
                     group.labs = stockdata$info[,2])
         }

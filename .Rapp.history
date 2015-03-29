@@ -1,0 +1,102 @@
+load(url("http://garthtarr.com/diabeteseg.RData"))
+ls()
+load("/Users/garthtarr/Dropbox/Packages/mplot_shiny/diabetesegcont.RData")
+ls()
+load("/Users/garthtarr/Dropbox/Packages/mplot_shiny/diabeteseg.RData")
+ls()
+rm(list=ls)
+rm(list=ls())
+load("/Users/garthtarr/Dropbox/Packages/mplot_shiny/diabeteseg.RData")
+ls()
+rm(list=ls())
+load("/Users/garthtarr/Dropbox/Packages/mplot_shiny/diabetesegcont.RData")
+ls()
+plot(data.frame(full.mod)$y)
+plot(data.frame(full.mod))
+data.frame(full.mod)
+model.frame(full.mod)
+pairs(model.frame(full.mod))
+rm(list=ls())
+load("/Users/garthtarr/Dropbox/Packages/mplot_shiny/diabetesegcont.RData")
+pairs(model.frame(full.mod))
+pairs(model.frame(full.mod.cont))
+load('~/Dropbox/Research/Diane/diane.RData')
+ls()
+rm(list=ls())
+ls()
+load('~/Dropbox/Research/Diane/diane.RData')
+ls()
+require(mplot)
+plot(af1)
+ls()
+rm(list=ls())
+ls()
+load('~/Dropbox/data.RData')
+ls()
+a
+bb
+c
+d
+mydata
+mymse
+rnorm(1)
+ls()
+rm(list=ls())
+ls()
+load("/Users/garthtarr/Dropbox/Consulting/Meat/MLA/2014_09/Haydns_2010_2014.Rdata")
+ls()
+str(dat)
+boxplot(dat$Plant)
+module load R/3.1.3
+load("/Users/garthtarr/melanomavis.RData")
+require(mplot)
+ls()
+plot(v1)
+load("/Users/garthtarr/melanomavisrT.RData")
+plot(v1)
+sys.info()
+sessionInfo()
+install.packages("knitr")
+load("/Users/garthtarr/melanoma.RData")
+plot(af1)
+rm(list=ls())
+load("/Users/garthtarr/melanoma.RData")
+ls()
+plot(af1)
+af1
+str(af1)
+x
+x=x=1
+x
+ls()
+plot(v1)
+devtools::install_github("pairsD3","garthtarr")
+require(pairsD3)
+data(iris)
+pairsD3(iris[,1:4])
+pairsD3(iris[,1:4],group=iris[,5])
+shiny::runGitHub('robnetwork', 'garth')
+shiny::runGitHub('robnetwork', 'garthtarr')
+require(networkD3)
+library(shiny)#
+require(huge)#
+data(stockdata)#
+X = log(stockdata$data[2:1258,]/stockdata$data[1:1257,])#
+colnames(X) = stockdata$info[,3]
+setwd("~/Dropbox/Packages/robnetwork/")
+load("cormats.RData")
+g = mk.g(cor.mat=cor.mat,lambda=lambda,var.names = var.names,group.labs=group.labs)
+ls()
+g = mk.g(cor.mat=cor.mat.classical.save,lambda=lambda,var.names = var.names,group.labs=group.labs)
+g = mk.g(cor.mat=cor.mat.classical.save,lambda=0.56,var.names = var.names,group.labs=group.labs)
+g = mk.g(cor.mat=cor.mat.classical.save,lambda=0.56)
+g = mk.g(cor.mat=cor.mat.classical.save,lambda=0.56,var.names=colnames(cor.mat.classical.save))
+name = as.character(V(g)$name)#
+  Links = get.data.frame(g,what="edges")#
+  name.lookup = data.frame(name=name,id=0:(length(name)-1))#
+  numSource = merge(data.frame(name=Links$from), name.lookup, all.x=TRUE, sort = FALSE)#
+  numTarget <- join(data.frame(name=Links$to), name.lookup, by = "name")#
+  numLinks = data.frame(from=numSource$id,to = numTarget$id)#
+  Nodes = data.frame(name,group=1,stringsAsFactors=TRUE)
+simpleNetwork(g)
+?forceNetwork
