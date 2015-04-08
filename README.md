@@ -9,7 +9,7 @@ install.packages("shiny"")
 install.packages("huge")
 install.packages("networkD3")
 install.packages("htmlwidgets")
-devtools::install_github("garthtarr/pairsD3")
+install.packages("pairsD3")
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ You can download and run `robnetwork` using:
 shiny::runGitHub("garthtarr/robnetwork")
 ```
 
-or you can check it out on Shinyapps.io: [garthtarr.shinyapps.io/robnetwork](https://garthtarr.shinyapps.io/robnetwork)
+or you can check out a hosted example [here](http://ec2-52-64-38-161.ap-southeast-2.compute.amazonaws.com/robnetwork/).
 
 ## References
 

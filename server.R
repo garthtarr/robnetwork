@@ -268,59 +268,74 @@ shinyServer(function(input, output) {
     }
   })
   
-  output$pairsplot = renderPairsD3({
+  #   output$pairsplot = renderPairsD3({
+  #     
+  #   })
+  
+  output$pairsplot <- renderUI({
+    pairsD3Output("pD3",width = input$width,height=input$width)
+  })
+  
+  output$pD3 <- renderPairsD3({
     if(input$data != "Financial data"){
-      pairsD3(subset(datain(),select = input$choose_vars))
+      pairsD3(subset(datain(),select = input$choose_vars),
+              theme = input$theme,
+              opacity = input$opacity,
+              cex = input$cex)      
     } else {
-      pairsD3(subset(X,select=input$choose_vars))
+      pairsD3(subset(X,select=input$choose_vars),
+              theme = input$theme,
+              opacity = input$opacity,
+              cex = input$cex)
     }
   })
-  
-  choices<-reactive({
-    input$choose_vars
-  })
-  
-  output$varselect <- renderUI({
-    if(input$data != "Financial data"){
-      cols = colnames(datain())
-    } else { cols = colnames(X)}
-    selectInput("choose_vars", "Select variables to plot:",
-                choices=cols, selected=cols[1:3], multiple=T)  
-  })
-  
-  output$outputTable <- renderDataTable({
-    if(input$data != "Financial data"){
-      data = datain()
-    } else { 
-      data = X 
+
+
+choices<-reactive({
+  input$choose_vars
+})
+
+output$varselect <- renderUI({
+  if(input$data != "Financial data"){
+    cols = colnames(datain())
+  } else { cols = colnames(X)}
+  selectInput("choose_vars", "Select variables to plot:",
+              choices=cols, selected=cols[1:3], multiple=T)  
+})
+
+output$outputTable <- renderDataTable({
+  if(input$data != "Financial data"){
+    data = datain()
+  } else { 
+    data = round(X,6) 
+  }
+  if(input$table_data_logical==1){
+    displayDF <- as.matrix(data) # baseData$df #data sent to d3.js 
+    n=dim(displayDF)[1]
+    dfFilter <- input$selectedobs[1:n] # passed from the web interface
+    if (is.null(dfFilter)){
+      # means no selection has been made
+      dfFilter = rep(TRUE,n)
     }
-    if(input$table_data_logical==1){
-      displayDF <- as.matrix(data) # baseData$df #data sent to d3.js 
-      n=dim(displayDF)[1]
-      dfFilter <- input$selectedobs[1:n] # passed from the web interface
-      if (is.null(dfFilter)){
-        # means no selection has been made
-        dfFilter = rep(TRUE,n)
-      }
-      displayDF <- as.data.frame(cbind(names=row.names(displayDF), 
-                                       displayDF))
-      dfFilter[dfFilter==''] = TRUE
-      dfFilter[dfFilter=='greyed'] = FALSE
-      if(input$table_data_vars==0){
-        return(as.matrix(displayDF[dfFilter == TRUE,choices(),drop=FALSE]))
-      } else if(input$table_data_vars==1){
-        return(as.matrix(displayDF[dfFilter == TRUE,,drop=FALSE]))
-      }
-    } else {
-      return(NULL)
+    displayDF <- as.data.frame(cbind(names=row.names(displayDF), 
+                                     displayDF))
+    dfFilter[dfFilter==''] = TRUE
+    dfFilter[dfFilter=='greyed'] = FALSE
+    if(input$table_data_vars==0){
+      return(as.matrix(displayDF[dfFilter == TRUE,choices(),drop=FALSE]))
+    } else if(input$table_data_vars==1){
+      return(as.matrix(displayDF[dfFilter == TRUE,,drop=FALSE]))
     }
-  }, 
-  options = list(pageLength = 20,
-                 lengthMenu = list(c(20, 50, -1), c('20', '50', 'All')),
-                 searching = FALSE)
-  )
-  
-  
+  } else {
+    return(NULL)
+  }
+}, 
+options = list(pageLength = 20,
+               lengthMenu = list(c(20, 50, -1), c('20', '50', 'All')),
+               searching = FALSE)
+)
+
+
 })
 
 
