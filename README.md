@@ -5,8 +5,10 @@ This is a shiny app that facilitates the estimation of robust regularised precic
 ## Dependencies
 
 ```
-install.packages("shiny"")
+install.packages("shiny")
 install.packages("huge")
+install.packages("rococo")
+install.packages("ICSNP")
 install.packages("networkD3")
 install.packages("htmlwidgets")
 install.packages("pairsD3")
