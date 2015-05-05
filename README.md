@@ -20,8 +20,6 @@ You can download and run `robnetwork` using:
 shiny::runGitHub("garthtarr/robnetwork")
 ```
 
-or you can check out a hosted example [here](http://ec2-52-64-38-161.ap-southeast-2.compute.amazonaws.com/robnetwork/).
-
 ## References
 
 - Tarr G, Müller S and Weber NC, (2015). Robust estimation of precision matrices under cellwise contamination. *Computational Statistics & Data Analysis*, to appear. DOI: [10.1016/j.csda.2015.02.005](http://dx.doi.org/10.1016/j.csda.2015.02.005)
